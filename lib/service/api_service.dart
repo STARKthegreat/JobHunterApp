@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:job_hunter/service/secrets.dart';
 
 var headers = {'Content-Type': 'application/json'};
 
@@ -23,7 +24,7 @@ Future<String> talkWithGemini(
     };
     var response = await client.post(
       Uri.parse(
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=AIzaSyAjLyGu1x_bUft2yfucNV4rEcvyofRQFR4'),
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=$token'),
       headers: headers,
       body: jsonEncode(body),
     );
