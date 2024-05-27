@@ -13,7 +13,7 @@ class DesktopHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<DesktopHomePage> {
-  String _counter = "Your suggestions will appear here.";
+  String _counter = "Your AI tips will appear here.";
   bool _isUploading = false;
   bool _isLoading = false;
   final TextEditingController _jobDescriptionController =
@@ -124,7 +124,8 @@ class _MyHomePageState extends State<DesktopHomePage> {
                             minHeight: 200,
                             minWidth: 100,
                           ),
-                          labelText: 'Job Description',
+                          hintText:
+                              "Paste the job description here. If you don't have one, you can put n/a and proceed to ask gemini by clicking the send button below.",
                         ),
                         maxLines: 200,
                       ),
