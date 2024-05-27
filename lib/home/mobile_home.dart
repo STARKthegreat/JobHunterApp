@@ -188,6 +188,8 @@ class _MyHomePageState extends State<MobileHomePage> {
     });
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowedExtensions: ['pdf'],
+      allowMultiple: false,
+      dialogTitle: "Select your CV",
       type: FileType.custom,
     );
 
