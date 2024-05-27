@@ -139,16 +139,26 @@ class _MyHomePageState extends State<DesktopHomePage> {
                   ? const CircularProgressIndicator()
                   : Container(
                       margin: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(8),
                       constraints:
                           const BoxConstraints(minWidth: 250, maxWidth: 600),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                        // border: Border.all(
+                        //   color: Theme.of(context).colorScheme.primary,
+                        // ),
+                        color: Theme.of(context).colorScheme.surface,
                       ),
-                      child: Text(
-                        _counter,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            _counter,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
             ],

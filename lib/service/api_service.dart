@@ -32,7 +32,8 @@ Future<String> talkWithGemini(
       var jsonString = jsonDecode(response.body);
       debugPrint(response.body);
       return jsonString["candidates"][0]["content"]["parts"][0]["text"]
-          .toString();
+          .toString()
+          .replaceAll("*", "");
     } else {
       debugPrint(response.reasonPhrase);
       return response.reasonPhrase.toString();
