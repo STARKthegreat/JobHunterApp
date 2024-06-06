@@ -40,6 +40,11 @@ dependencies:
   file_picker: ^8.0.3
   pdf: ^3.10.8
   syncfusion_flutter_pdf: ^25.1.42
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/logo.png
 
 dev_dependencies:
   flutter_test:
