@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:job_hunter/home/desktop_home.dart';
 import 'package:job_hunter/home/mobile_home.dart';
-import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Job Hunter App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: LayoutBuilder(

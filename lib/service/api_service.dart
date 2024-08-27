@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+String apiKey = const String.fromEnvironment('API_KEY');
+
 var headers = {'Content-Type': 'application/json'};
 
 Future<String> talkWithGemini(
@@ -23,7 +25,7 @@ Future<String> talkWithGemini(
     };
     var response = await client.post(
       Uri.parse(
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=AIzaSyCqARFd0JhquEC13dp5e1RBe0Dvefqrr4U'),
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=$apiKey'),
       headers: headers,
       body: jsonEncode(body),
     );

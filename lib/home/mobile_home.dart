@@ -1,12 +1,13 @@
 import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:job_hunter/service/api_service.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class MobileHomePage extends StatefulWidget {
-  const MobileHomePage({super.key, required this.title});
   final String title;
+  const MobileHomePage({super.key, required this.title});
 
   @override
   State<MobileHomePage> createState() => _MyHomePageState();
@@ -19,30 +20,6 @@ class _MyHomePageState extends State<MobileHomePage> {
   final TextEditingController _jobDescriptionController =
       TextEditingController();
   final TextEditingController _resumeTextController = TextEditingController();
-
-  void _incrementCounter(
-      {String resumeText = "", String jobDescription = ""}) async {
-    setState(() {
-      _isLoading = true;
-    });
-    var response = await talkWithGemini(
-            resumeText: resumeText, jobDescription: jobDescription)
-        .whenComplete(
-      () => setState(
-        () {
-          _isLoading = false;
-        },
-      ),
-    );
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter = response;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +118,7 @@ class _MyHomePageState extends State<MobileHomePage> {
                   ? const CircularProgressIndicator()
                   : Container(
                       margin: const EdgeInsets.all(16),
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       constraints:
                           const BoxConstraints(minWidth: 250, maxWidth: 600),
                       decoration: BoxDecoration(
@@ -169,8 +146,8 @@ class _MyHomePageState extends State<MobileHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(_resumeTextController.text);
-          print(_jobDescriptionController.text);
+          debugPrint(_resumeTextController.text);
+          debugPrint(_jobDescriptionController.text);
           _incrementCounter(
             resumeText: _resumeTextController.text,
             jobDescription: _jobDescriptionController.text,
@@ -204,5 +181,29 @@ class _MyHomePageState extends State<MobileHomePage> {
       // User canceled the picker
       return "No file selected";
     }
+  }
+
+  void _incrementCounter(
+      {String resumeText = "", String jobDescription = ""}) async {
+    setState(() {
+      _isLoading = true;
+    });
+    var response = await talkWithGemini(
+            resumeText: resumeText, jobDescription: jobDescription)
+        .whenComplete(
+      () => setState(
+        () {
+          _isLoading = false;
+        },
+      ),
+    );
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter = response;
+    });
   }
 }

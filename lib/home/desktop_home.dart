@@ -1,12 +1,14 @@
 import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:job_hunter/service/api_service.dart';
+import 'package:job_hunter/widgets/youtube_video_view_widget.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class DesktopHomePage extends StatefulWidget {
-  const DesktopHomePage({super.key, required this.title});
   final String title;
+  const DesktopHomePage({super.key, required this.title});
 
   @override
   State<DesktopHomePage> createState() => _MyHomePageState();
@@ -20,29 +22,9 @@ class _MyHomePageState extends State<DesktopHomePage> {
       TextEditingController();
   final TextEditingController _resumeTextController = TextEditingController();
 
-  void _incrementCounter(
-      {String resumeText = "", String jobDescription = ""}) async {
-    setState(() {
-      _isLoading = true;
-    });
-    var response = await talkWithGemini(
-            resumeText: resumeText, jobDescription: jobDescription)
-        .whenComplete(
-      () => setState(
-        () {
-          _isLoading = false;
-        },
-      ),
-    );
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter = response;
-    });
-  }
+  // late VideoPlayerController _controller;
+    // late Future<void> _initializeVideoPlayerFuture;
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +40,7 @@ class _MyHomePageState extends State<DesktopHomePage> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.all(8),
@@ -140,7 +123,7 @@ class _MyHomePageState extends State<DesktopHomePage> {
                   ? const CircularProgressIndicator()
                   : Container(
                       margin: const EdgeInsets.all(16),
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       constraints:
                           const BoxConstraints(minWidth: 250, maxWidth: 600),
                       decoration: BoxDecoration(
@@ -162,14 +145,67 @@ class _MyHomePageState extends State<DesktopHomePage> {
                         ),
                       ),
                     ),
+
+                    Container(
+                padding: const EdgeInsets.all(8), 
+                height: 6000,
+                width: 315,
+                child: const Column(
+                  children: [
+                    Text(
+                      'Watch this video to learn how to use the app:',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    YoutubeVideoViewWidget()
+                    // FutureBuilder(
+                    //   future: _initializeVideoPlayerFuture,
+                    //   builder: (context, snapshot) {
+
+                    //     if(snapshot.connectionState == ConnectionState.done) {
+                    //       return AspectRatio(
+                    //         aspectRatio: _controller.value.aspectRatio,
+                    //         child: GestureDetector(
+                    //           onTap: () {
+                    //             setState(() {
+                    //               if(_controller.value.isPlaying) {
+                    //                 _controller.pause();
+                    //               }else{
+                    //                 _controller.play();
+                    //               }
+                    //             });
+                    //           },
+                    //           child: VideoPlayer(
+                    //             _controller,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }else if(snapshot.connectionState == ConnectionState.waiting) {
+                    //       return const Center(child: CircularProgressIndicator());
+                    //     }else
+
+                    //     if(snapshot.hasError) {
+                    //       return  Text("Error loading video ${snapshot.error}");
+                    //     }else{
+                    //       return const Center(child: Text("Unkown error"));
+                    //     }
+                        
+                    //   }
+                    // ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(_resumeTextController.text);
-          print(_jobDescriptionController.text);
+          debugPrint(_resumeTextController.text);
+          debugPrint(_jobDescriptionController.text);
           _incrementCounter(
             resumeText: _resumeTextController.text,
             jobDescription: _jobDescriptionController.text,
@@ -179,6 +215,12 @@ class _MyHomePageState extends State<DesktopHomePage> {
         child: const Icon(Icons.send),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // _controller.dispose();
   }
 
   Future<String> getPDFtext() async {
@@ -203,5 +245,37 @@ class _MyHomePageState extends State<DesktopHomePage> {
       // User canceled the picker
       return "No file selected";
     }
+  }
+
+  @override
+  void initState() {
+    
+    super.initState();
+    // _controller = VideoPlayerController.networkUrl(Uri.parse("https://www.youtube.com/watch?v=YAP12Xz0hBU"));
+    // _initializeVideoPlayerFuture = _controller.initialize();
+  }
+
+  void _incrementCounter(
+      {String resumeText = "", String jobDescription = ""}) async {
+    setState(() {
+      _isLoading = true;
+    });
+    var response = await talkWithGemini(
+            resumeText: resumeText, jobDescription: jobDescription)
+        .whenComplete(
+      () => setState(
+        () {
+          _isLoading = false;
+        },
+      ),
+    );
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter = response;
+    });
   }
 }
