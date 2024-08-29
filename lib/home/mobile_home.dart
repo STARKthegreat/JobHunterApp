@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:job_hunter/service/api_service.dart';
+import 'package:job_hunter/widgets/youtube_video_view_widget.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class MobileHomePage extends StatefulWidget {
@@ -140,6 +141,26 @@ class _MyHomePageState extends State<MobileHomePage> {
                         ),
                       ),
                     ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                height: 6000,
+                width: 315,
+                child: const Column(
+                  children: [
+                    Text(
+                      'Watch this video to learn how to use the app:',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    AspectRatio(
+                      aspectRatio: 4 / 3,
+                      child: YoutubeVideoViewWidget(),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
